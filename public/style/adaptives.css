@@ -135,7 +135,7 @@ font-size: 1.3vw;
     gap: 2vw;
     align-items: center;
     justify-content: space-between;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
 }
 .title_of_card_advantages {
     padding-top: 1vw;
@@ -153,6 +153,7 @@ font-size: 1.3vw;
     max-width: 83vw;
     display: flex
 ;
+gap: 3vw;
     justify-content: space-between;
     margin: 0 auto;
     flex-direction: column;
@@ -304,20 +305,23 @@ font-size: 1.3vw;
     padding-bottom: 1.6vw;
 }
 .icons_for_card_advantagess {
-    padding: 2.25vw;
+    padding: 4.25vw;
 }
 .content_card_advantages p {
 font-size: 2.7vw;
         padding-top: 2vw;
         font-family: "Manrope", sans-serif;
 }
+.content_card_advantages {
+    padding: 4.6vw;
+}
 .icons_for_card_advantagess img {
     float: right;
     width: 5.75vw;
 }
 .card_advantages {
-    height: 61.51vw;
-    border-radius: 2.5vw;
+    height: 100%;
+    border-radius: 5.5vw;
 }
 .mobile_header_navigation.active {
   display: inline;
@@ -339,7 +343,7 @@ font-size: 2.7vw;
   }
 }
 .logo_font {
-        font-size: 4vw;
+        font-size: 3vw;
     }
     .navigation{
         display: none;
@@ -359,7 +363,7 @@ box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
     }
 .logo_burger img{
         display: inline;
-                width: 9vw;
+                width: 6vw;
 }
 .logo_font {
     padding-top: 1.3vw;
@@ -395,7 +399,7 @@ margin-block-start: 1.3em;
     color: white;
     border: none;
     border-radius: 3.25vw;
-    padding: 1.83vw 2.25vw;
+        padding: 0.83vw 1.25vw;
     transition: all 0.3s ease;
 }
 .phone_contact address a {
