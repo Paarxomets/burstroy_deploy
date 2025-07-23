@@ -1,1 +1,3 @@
 echo "node_modules/" >> .gitignorenode_modules/
+.DS_Store
+.DS_Store
