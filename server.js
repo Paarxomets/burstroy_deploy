@@ -3,7 +3,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const multer = require('multer');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -14,7 +14,17 @@ const storage = multer.diskStorage({
         cb(null, `${uniqueSuffix}-${file.originalname}`);
     }
 });
-const upload = multer({ storage }).any();
+const upload = multer({
+    storage,
+    fileFilter: (req, file, cb) => {
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (allowedTypes.includes(file.mimetype)) {
+            cb(null, true);
+        } else {
+            cb(new Error('Только изображения (jpeg, png, gif) разрешены'));
+        }
+    }
+}).any();
 
 app.use(express.json());
 app.use(express.static('public'));
@@ -102,7 +112,7 @@ app.post('/save-article', async (req, res) => {
                             const photo = photos.find(p => p.fieldname === `photo_${photoIndex}`);
                             if (!photo) {
                                 console.warn(`Файл для photo_${photoIndex} не найден`);
-                                return null; // Пропускаем элемент, если файл не найден
+                                return null;
                             }
                             return {
                                 type: 'photo',
@@ -113,7 +123,7 @@ app.post('/save-article', async (req, res) => {
                             };
                         }
                         return el;
-                    }).filter(el => el) // Удаляем null элементы
+                    }).filter(el => el)
                 }
             };
 
@@ -211,7 +221,6 @@ app.get('/articles-data', async (req, res) => {
             json = [];
         }
 
-        // Фильтруем статьи, у которых есть HTML-файл
         json = await Promise.all(json.map(async (article) => {
             const articleHtmlPath = path.join(__dirname, 'public/articles', `${article.id}.html`);
             try {
@@ -254,7 +263,6 @@ app.delete('/article/:id', async (req, res) => {
             return res.status(404).json({ error: 'Статья не найдена' });
         }
 
-        // Удаляем файлы изображений, связанных со статьей
         const article = json[articleIndex];
         const photoElements = article.content.elements.filter(el => el.type === 'photo');
         for (const photo of photoElements) {
@@ -299,7 +307,6 @@ app.get('/sitemap.xml', async (req, res) => {
             json = [];
         }
 
-        // Фильтруем статьи для sitemap
         json = await Promise.all(json.map(async (article) => {
             const articleHtmlPath = path.join(__dirname, 'public/articles', `${article.id}.html`);
             try {
@@ -312,12 +319,22 @@ app.get('/sitemap.xml', async (req, res) => {
         }));
         json = json.filter(article => article);
 
-        const baseUrl = 'http://localhost:3000';
+        const baseUrl = 'https://parkhozk.beget.tech';
         const sitemap = `
             <?xml version="1.0" encoding="UTF-8"?>
             <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
                 <url>
                     <loc>${baseUrl}/</loc>
+                    <changefreq>weekly</changefreq>
+                    <priority>0.8</priority>
+                </url>
+                <url>
+                    <loc>${baseUrl}/portfolio.html</loc>
+                    <changefreq>weekly</changefreq>
+                    <priority>0.8</priority>
+                </url>
+                <url>
+                    <loc>${baseUrl}/tecnology.html</loc>
                     <changefreq>weekly</changefreq>
                     <priority>0.8</priority>
                 </url>
@@ -344,5 +361,5 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Сервер запущен: http://localhost:${PORT}`);
+    console.log(`Сервер запущен на порту ${PORT}`);
 });
