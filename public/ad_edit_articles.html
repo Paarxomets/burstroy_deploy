@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="favicon.svg">
+    <title>edit_arcticle</title>
+    
+</head>
+<body>
+    <main>
+        <div class="main_container">
+            <button class="Btn" type="button" onclick="window.location.href = 'index.html'">
+                <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
+                <div class="text">Выход</div>
+            </button>
+            <button id="create_form_article" class="button">
+                <p>+</p>
+                <span class="lable">Создать статью</span>
+            </button>
+            <div class="create_edit_form">
+                  
+            </div>
+            <div class="list_articles_content">
+                <div class="list_of_article">
+                    <div class="container_artricle">
+                        <div class="state">
+                            <div class="text_information_article">
+                                <h4>Название статьи</h4>
+                                <p>Испытание буронабивных свай эхо-методом осуществляется при помощи прибора свайный Эхо Тестер (Pile Echo Tester) производства Piletest. Это гибкий прибор для быстрого и точного тестирования большого количества глубоких фундаментов. Практически не требует обучения.</p>
+                            </div>
+                            <button class="detele_article_list">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44" fill="none">
+                                    <path d="M17 17L27 27M27 17L17 27M42 22C42 24.6264 41.4827 27.2272 40.4776 29.6537C39.4725 32.0802 37.9993 34.285 36.1421 36.1421C34.285 37.9993 32.0802 39.4725 29.6537 40.4776C27.2272 41.4827 24.6264 42 22 42C19.3736 42 16.7728 41.4827 14.3463 40.4776C11.9198 39.4725 9.71504 37.9993 7.85786 36.1421C6.00069 34.285 4.5275 32.0802 3.52241 29.6537C2.51732 27.2272 2 24.6264 2 22C2 16.6957 4.10714 11.6086 7.85786 7.85786C11.6086 4.10714 16.6957 2 22 2C27.3043 2 32.3914 4.10714 36.1421 7.85786C39.8929 11.6086 42 16.6957 42 22Z" stroke="#FF575A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/dayjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/locale/ru.js"></script>
+<script src="script.js" defer></script>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+        if (sessionStorage.getItem('isAuthenticated') !== 'true') {
+            window.location.href = "index.html";
+        }
+    });
+</script>
+</body>
+</html>
