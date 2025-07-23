@@ -1,17 +1,19 @@
 {
-  "name": "test",
+  "name": "burstroy",
   "version": "1.0.0",
-  "description": "",
+  "description": "Сайт компании Burstroy - строительные услуги",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["строительство", "услуги", "burstroy"],
+  "author": "Ваше имя или компания",
   "license": "ISC",
+  "engines": {
+    "node": "22.x"
+  },
   "dependencies": {
-    "@vercel/speed-insights": "^1.2.0",
     "express": "^5.1.0",
     "multer": "^2.0.1"
   }
