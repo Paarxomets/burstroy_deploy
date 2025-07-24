@@ -1107,5 +1107,41 @@
         }
       ]
     }
+  },
+  {
+    "id": "1753280857011",
+    "datetime": "17:27, 23 июля - Источник:",
+    "title": "fqrejng",
+    "checkbox": true,
+    "content": {
+      "elements": [
+        {
+          "type": "title",
+          "value": "wergwerg"
+        },
+        {
+          "type": "text",
+          "value": "wergwergwe"
+        },
+        {
+          "type": "photo",
+          "value": {
+            "description": "",
+            "filename": "img/1753280856996-954248634-Ð¡Ð½Ð¸Ð¼Ð¾Ðº ÑÐºÑÐ°Ð½Ð° 2025-07-22 Ð² 16.00.33.png"
+          }
+        },
+        {
+          "type": "photo",
+          "value": {
+            "description": "",
+            "filename": "img/1753280856999-148209270-Ð¡Ð½Ð¸Ð¼Ð¾Ðº ÑÐºÑÐ°Ð½Ð° 2025-07-22 Ð² 15.56.03.png"
+          }
+        },
+        {
+          "type": "quote",
+          "value": "qwefqwef"
+        }
+      ]
+    }
   }
 ]

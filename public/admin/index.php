@@ -1,4 +1,8 @@
 <?php
+file_put_contents('/tmp/debug.log', "DOCUMENT_ROOT: " . $_SERVER['DOCUMENT_ROOT'] . "\n");
+file_put_contents('/tmp/debug.log', "SCRIPT_FILENAME: " . $_SERVER['SCRIPT_FILENAME'] . "\n", FILE_APPEND);
+file_put_contents('/tmp/debug.log', "PHP_SELF: " . $_SERVER['PHP_SELF'] . "\n", FILE_APPEND);
+file_put_contents('/tmp/debug.log', print_r($_SERVER, true));
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);

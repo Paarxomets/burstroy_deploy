@@ -1,10 +1,6 @@
 <?php
 session_start();
-<<<<<<< HEAD
-$pass='buradmin'; // Пароль для входа в Админку
-=======
-$pass='burstroy_admin'; // Пароль для входа в Админку
->>>>>>> 71593b60071c9cfcac9087472f125fc108a794c4
+$pass='parkhomets'; // Пароль для входа в Админку
 $adm=0; // Если в переменной $adm==1 то вы успешно авторизованы
 
 if((isset($_POST['slovo'])||isset($_POST['sekret']))||($_SESSION['sekret']==md5($pass))){
@@ -89,7 +85,7 @@ a {
 	display: inline;
     -webkit-transition: all 555ms ease;
     transition: all 555ms ease;
-    color: #005bff;
+    color: #FF8B3A;
     text-decoration: none;
 }
 .kartinka {
@@ -134,7 +130,7 @@ background: #fffff0;
 }
 #menu a {
 	    padding: 7px 20px 9px 20px;
-    background-color: #005bff;
+    background-color:#FF8B3A;
     box-shadow: 0 20px 18px -10px rgba(0, 91, 255, 0.43);
     box-shadow: 0 20px 18px -10px rgba(0, 91, 255, 0.43);
     color: white;
@@ -416,9 +412,7 @@ if(!isset($_GET['mode'])){
 		<p> По кнопкам HTML и CSS JS лучше вообще не нажимать, поскольку то, что там, предназначено для людей которые понимают код, вы же можете поломать сайт, внеся туда неверные изменения.
 		<p> Там можно вставлять код метрик/аналитик/фейсбук-пикселей/онлайн консультантов и прочих штук, требующих вставки кода, нажав по кнопке "HTML".
 <br><br><br><p><br><br>
-		<div class="who_am_i">
-                                        <p>&copy; 2024 Pakhomets Nikita Sergeevich</p>
-                                    </div>');
+	');
 };
 
 echo('</body></html>');
