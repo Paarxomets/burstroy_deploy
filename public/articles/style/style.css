@@ -38,6 +38,7 @@ html, body {
 }
 * {
     box-sizing: inherit;
+    
 }
 h4 {
     display: block;

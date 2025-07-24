@@ -80,6 +80,9 @@ font-size: 1.3vw;
     flex-direction: column;
     align-items: center;
 }
+.search_article{
+    display: none;
+}
 .title_text p {
     font-size: 1.8vw;
 }
@@ -354,7 +357,7 @@ font-size: 4.325vw;
     width: 100%;
     height: 54vw;
     object-fit: cover;
-    border-radius: 2vw;
+    border-radius: 3vw;
 }
 .huhuhf {
     padding-top: 9.5vw;
@@ -485,7 +488,7 @@ box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
     }
 .logo_burger img{
         display: inline;
-                width: 6vw;
+                width: 9vw;
 }
 .logo_font {
     padding-top: 1.3vw;
@@ -813,6 +816,67 @@ margin-block-start: 1.3em;
     position: relative;
     z-index: 2;
 }
+    .button_contiioerfnireog {
+        padding-top: 3vw;
+    }
+    .title_article_article h1 {
+        font-size: 6.125vw;
+        letter-spacing: -0.09vw;
+        line-height: 7.5vw;
+        margin-block-start: 0em;
+        margin-block-end: 0em;
+        padding-top: 2vw;
+        padding-bottom: 3.7vw;
+        font-family: "Manrope", sans-serif;
+    }
+    .title_article_article p {
+    opacity: 0.5;
+    padding-bottom: 4vw;
+}
+.content_article_artilce p {
+        font-size: 4.2vw;
+        padding-bottom: 1.25vw;
+    }
+    .content_article_artilce figure img {
+    border: 2px solid #FF8B3A;
+    border-radius: 4vw;
+    height: 71vw;
+    width: 100%;
+    object-fit: cover;
+}
+.content_article_artilce blockquote {
+        margin-inline-start: 0px;
+        background-color: var(--back);
+        padding: 4.5vw;
+        border-radius: 5vw;
+        max-width: 100%;
+        margin-inline-end: 0px;
+        font-size: 4.25vw;
+        margin-block-start: 1.5em;
+        margin-block-end: 1.5em;
+        color: white;
+    }
+        .content_artile_article h2 {
+        font-size: 7vw;
+        letter-spacing: -0.05vw;
+        line-height: 8.5vw;
+        margin-block-start: 0em;
+        margin-block-end: 0em;
+        padding-top: 2vw;
+        padding-bottom: 2.7vw;
+        font-family: "Manrope", sans-serif;
+    }
+    .block_read_next {
+    padding-top: 16vw;
+}
+    .titile_bloks__ {
+        font-size: 7.125vw;
+        text-align: left;
+        letter-spacing: -0.09vw;
+        line-height: 6.5vw;
+        font-family: "Manrope", sans-serif;
+        padding-bottom: 5vw;
+    }
     .grid_container {
         display: grid
 ;
@@ -930,10 +994,7 @@ font-size: 5.9vw;
     width: 100%;
     height: 62vw;
     object-fit: cover;
-    border-radius: 1.8vw;
-}
-.picture_text_about_img_second_our_works{
-    display: none;
+    border-radius: 3vw;
 }
 .erqifjoqerogqr{
     margin-right: auto !important;
