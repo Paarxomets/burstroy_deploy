@@ -1,6 +1,6 @@
 <?php
 session_start();
-$pass='artstranger'; // Пароль для входа в Админку
+$pass='buradmin'; // Пароль для входа в Админку
 $adm=0; // Если в переменной $adm==1 то вы успешно авторизованы
 
 if((isset($_POST['slovo'])||isset($_POST['sekret']))||($_SESSION['sekret']==md5($pass))){
