@@ -430,6 +430,18 @@ font-size: 2.7vw;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
+.text_of_tecnology h5 {
+    font-size: 2vw;
+    font-weight: 400;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+}
+
 .text_block_ofarticles {
     position: absolute;
     bottom: 0;
@@ -516,11 +528,33 @@ margin-block-start: 1.3em;
     letter-spacing: -0.05vw;
     padding-bottom: 1.83vw;
 }
-.content-tecnology {
-    padding: 2vw;
+    .content-tecnology {
+        padding: 2vw;
+        display: flex
+;
+        gap: 2vw;
+    }
+    .img_teclonogy__ img {
+    border-radius: 1.3vw;
+    height: 34vw;
+    width: 37.77vw;
+    object-fit: cover;
+    border-radius: 2.25vw;
+}
+#more_button {
     display: flex
 ;
-    gap: 1vw;
+    align-items: center;
+    border: none;
+    letter-spacing: -0.04vw;
+    gap: 0.52vw;
+    border-radius: 2.55vw;
+    background-color: var(--prymary);
+    padding: 0.83vw 2.25vw;
+    font-size: 2.25vw;
+    color: white;
+    font-family: "Geist", sans-serif;
+    transition: all 0.2s ease;
 }
 .item_teclogy_bl {
     background-color: var(--gray);
@@ -621,7 +655,7 @@ margin-block-start: 1.3em;
     flex-direction: column;
 }
 }
-@media (max-width: 375px) {
+@media (max-width: 550px) {
 
     .logo_font{
     font-size: 5.23vw;
@@ -795,7 +829,7 @@ margin-block-start: 1.3em;
     .grid_item {
         background-color: var(--gray);
         border-radius: 7.56vw;
-        height: 99vw;
+        height: 102vw;
     }
     .item_content_container {
         padding: 2.5vw;
