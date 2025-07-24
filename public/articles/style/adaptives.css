@@ -264,6 +264,15 @@ font-size: 3.9vw;
 padding: 1.5vw;
         height: 20vw;
 }
+    .grid_item {
+        background-color: var(--gray);
+        border-radius: 7.56vw;
+        height: 53vw;
+    }
+    .qwefwef {
+    padding-top: 4vw;
+    padding-bottom: 0vw !important;
+}
 .qwefwef {
     padding-top: 4vw;
     padding-bottom: 0vw !important;
@@ -879,6 +888,9 @@ margin-block-start: 1.3em;
         letter-spacing: -0.09vw;
         line-height: 6.5vw;
         font-family: "Manrope", sans-serif;
+    }
+    .iooijef{
+        padding-bottom: 5vw;
     }
     .iooijef{
         text-align: left !important;

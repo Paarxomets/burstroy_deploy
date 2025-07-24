@@ -1,10 +1,6 @@
 <?php
 session_start();
-<<<<<<< HEAD
 $pass='buradmin'; // Пароль для входа в Админку
-=======
-$pass='burstroy_admin'; // Пароль для входа в Админку
->>>>>>> 71593b60071c9cfcac9087472f125fc108a794c4
 $adm=0; // Если в переменной $adm==1 то вы успешно авторизованы
 
 if((isset($_POST['slovo'])||isset($_POST['sekret']))||($_SESSION['sekret']==md5($pass))){
