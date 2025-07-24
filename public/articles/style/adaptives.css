@@ -135,7 +135,7 @@ font-size: 1.3vw;
     gap: 2vw;
     align-items: center;
     justify-content: space-between;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
 }
 .title_of_card_advantages {
     padding-top: 1vw;
@@ -153,32 +153,48 @@ font-size: 1.3vw;
     max-width: 83vw;
     display: flex
 ;
+gap: 3vw;
     justify-content: space-between;
     margin: 0 auto;
     flex-direction: column;
     align-items: flex-start;
 }
 .jjfuhdbx{
+    width: 100%;
     margin-left: auto;
 }
 .picture_text_about_img {
-    width: 52.5vw;
+    width: 100%;
     height: 30vw;
     object-fit: cover;
-    border-radius: 1vw;
+    border-radius: 1.8vw;
+}
+.text_about_us_up p {
+    font-size: 2.7vw;
+    font-weight: 300;
+    line-height: 3.3vw;
 }
 .text_about_us_up h3 {
-    font-size: 2.9vw;
-    font-weight: 500;
-    line-height: 2.6vw;
-    letter-spacing: -0.05vw;
-    font-family: "Manrope", sans-serif;
+font-size: 3.9vw;
+        font-weight: 500;
+        line-height: 3.6vw;
+        letter-spacing: -0.05vw;
+        font-family: "Manrope", sans-serif;
+}
+.picture_text_about{
+    width: 100%;
+    padding-bottom: 2vw;
+}
+.grid_item {
+    background-color: var(--gray);
+    border-radius: 4.56vw;
+    height: 44vw;
 }
 .picture_text_about_img_second {
-    width: 48vw;
-    height: 21vw;
+    width: 100%;
+    height: 28vw;
     object-fit: cover;
-    border-radius: 0.8vw;
+    border-radius: 1.8vw;
 }
 .grid_container {
     display: grid
@@ -191,7 +207,7 @@ font-size: 1.3vw;
     width: 100%;
     object-fit: cover;
     height: 16vw;
-    border-radius: 6vw;
+    border-radius: 4vw;
 }
 .button_link_articles {
     display: flex
@@ -215,7 +231,7 @@ font-size: 1.3vw;
     -webkit-box-orient: vertical;
 }
 .text_block_for_item_grid h4 {
-    font-size: 3.25vw;
+    font-size: 2.26vw;
     font-weight: 400;
     margin-block-start: 0em;
     margin-block-end: 0em;
@@ -242,13 +258,64 @@ font-size: 1.3vw;
     transition: all 0.2s ease;
 }
 .item_content_container {
-    padding: 1.5vw;
+padding: 1.5vw;
+        height: 100%;
 }
+.button_contiioerfnireog {
+    padding-top: 5vw;
+}
+.picture_text_about_img_second_our_works {
+    width: 100%;
+    height: 54vw;
+    object-fit: cover;
+    border-radius: 1.8vw;
+}
+.text_content_container p {
+    font-family: "Manrope", sans-serif;
+    font-size: 2vw;
+    color: var(--back);
+    text-align: center;
+    padding-bottom: 1.25vw;
+    text-transform: uppercase;
+}
+.text_content_container h3 {
+    font-size: 3.89vw;
+    /* width: 102vw; */
+    text-align: center;
+    letter-spacing: -0.1vw;
+    line-height: 5.3vw;
+    font-weight: 600;
+    font-family: "Manrope", sans-serif;
+    padding-bottom: 2.08vw;
+}
+.text_content_container button {
+    display: flex
+;
+    align-items: center;
+    border: none;
+    letter-spacing: -0.04vw;
+    gap: 1.52vw;
+    border-radius: 3.55vw;
+    background-color: var(--prymary);
+    padding: 1.83vw 2.25vw;
+    font-size: 2.25vw;
+    color: white;
+    font-family: "Geist", sans-serif;
+    transition: all 0.2s ease;
+}
+.text_content_container button img {
+    width: 1.8vw;
+}
+
+
 .titile_bloks__ {
-    font-size: 5.125vw;
+font-size: 4.325vw;
     letter-spacing: -0.09vw;
     line-height: 4.5vw;
     font-family: "Manrope", sans-serif;
+}
+.search_article{
+    display: none;
 }
 .button_link_articles button {
     display: flex
@@ -260,7 +327,7 @@ font-size: 1.3vw;
     border-radius: 2.55vw;
     background-color: var(--prymary);
     padding: 0.83vw 3.25vw;
-    font-size: 3vw;
+    font-size: 2vw;
     color: white;
     font-family: "Geist", sans-serif;
     transition: all 0.2s ease;
@@ -304,20 +371,23 @@ font-size: 1.3vw;
     padding-bottom: 1.6vw;
 }
 .icons_for_card_advantagess {
-    padding: 2.25vw;
+    padding: 4.25vw;
 }
 .content_card_advantages p {
 font-size: 2.7vw;
         padding-top: 2vw;
         font-family: "Manrope", sans-serif;
 }
+.content_card_advantages {
+    padding: 4.6vw;
+}
 .icons_for_card_advantagess img {
     float: right;
     width: 5.75vw;
 }
 .card_advantages {
-    height: 61.51vw;
-    border-radius: 2.5vw;
+    height: 100%;
+    border-radius: 5.5vw;
 }
 .mobile_header_navigation.active {
   display: inline;
@@ -338,15 +408,59 @@ font-size: 2.7vw;
     display: none; /* Скрываем в конце */
   }
 }
+.controll_title h3 {
+    font-size: 3vw;
+    font-weight: 600;
+}
+.container_main-tecnolofy {
+    display: flex
+;
+    gap: 1vw;
+    align-items: center;
+    flex-direction: column;
+}
+.text_block_ofarticles h3 {
+    font-size: 2.25vw;
+    font-family: "Geist", sans-serif;
+    font-weight: 600;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.text_block_ofarticles {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 1.7vw;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    box-sizing: border-box;
+    border-radius: 0vw 0vw 1vw 1vw;
+}
+.controll_ p {
+    width: 100%;
+    padding-top: 0.5vw;
+    font-size: 2vw;
+}
+.container_main-tecnolofy a img {
+    height: 18.5vw;
+    width: 83vw;
+    object-fit: cover;
+    border-radius: 1.8vw;
+    display: block;
+}
 .logo_font {
-        font-size: 4vw;
+        font-size: 3vw;
     }
     .navigation{
         display: none;
     }
     .chat_contact img,
     .phone_contact img{
-    width: 3.4vw;
+    width: 2.4vw;
     }
     .content_mobile_navigation{
         background-color: white;
@@ -355,11 +469,11 @@ box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
         border-radius: 2vw;
     }
     .chat_contact p {
-        font-size: 2vw;
+        font-size: 1.5vw;
     }
 .logo_burger img{
         display: inline;
-                width: 9vw;
+                width: 6vw;
 }
 .logo_font {
     padding-top: 1.3vw;
@@ -389,13 +503,55 @@ margin-block-start: 1.3em;
 .navigation_mobile ul a{
     font-size: 4vw;
 }
+.main_container_article {
+    max-width: 88vw;
+    margin: 0 auto;
+}
+.content_of_content_article___ {
+    max-width: 100%;
+}
+    .content_article_artilce blockquote {
+        margin-inline-start: 0px;
+        background-color: var(--back);
+        padding: 2.5vw;
+        border-radius: 2vw;
+        max-width: 60vw;
+        font-size: 2.25vw;
+        margin-block-start: 1.5em;
+        margin-block-end: 1.5em;
+        color: white;
+    }
+.title_article_article h1 {
+    font-size: 3.125vw;
+    letter-spacing: -0.09vw;
+    line-height: 2.5vw;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    padding-top: 2vw;
+    padding-bottom: 1.7vw;
+    font-family: "Manrope", sans-serif;
+}
+.content_article_artilce p {
+    font-size: 2.2vw;
+    padding-bottom: 1.25vw;
+}
+.content_artile_article h2 {
+    font-size: 4vw;
+    letter-spacing: -0.05vw;
+    line-height: 2.5vw;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    padding-top: 2vw;
+    padding-bottom: 2.7vw;
+    font-family: "Manrope", sans-serif;
+}
 .contct_container button {
     cursor: pointer;
     background-color: var(--prymary);
     color: white;
     border: none;
     border-radius: 3.25vw;
-    padding: 1.83vw 2.25vw;
+        padding: 0.83vw 1.25vw;
     transition: all 0.3s ease;
 }
 .phone_contact address a {
@@ -650,15 +806,12 @@ margin-block-start: 1.3em;
         width: 100%;
         object-fit: cover;
         height: 47vw;
-        border-radius: 5vw;
+        border-radius: 4vw;
     }
     .grid_item {
         background-color: var(--gray);
         border-radius: 7.56vw;
         height: 99vw;
-    }
-    .oiewqfjpoiwqepfoijqw{
-                height: 51vw !important;
     }
     .item_content_container {
         padding: 2.5vw;
@@ -761,6 +914,9 @@ font-size: 5.9vw;
     object-fit: cover;
     border-radius: 1.8vw;
 }
+.picture_text_about_img_second_our_works{
+    display: none;
+}
 .erqifjoqerogqr{
     margin-right: auto !important;
     margin-left: 0 !important;
@@ -798,10 +954,6 @@ font-size: 5.9vw;
     display: flex
 ;
     gap: 4vw;
-}
-.qwefwef {
-    padding-top: 5vw;
-    padding-bottom: 0vw !important;
 }
     .huhuhf {
         padding-top: 21.5vw;
@@ -901,7 +1053,7 @@ font-size: 5.9vw;
     flex-direction: column !important;
 }
 .text_block_ofarticles h3 {
-    font-size: 4.25vw;
+    font-size: 3.25vw;
 }
 .text_block_ofarticles {
     position: absolute;
@@ -924,7 +1076,7 @@ font-size: 5.9vw;
     font-size: 3vw;
 }
 .container_main-tecnolofy a img {
-    height: 35.5vw;
+    height: 30.5vw;
     width: 83vw;
     object-fit: cover;
     border-radius: 2.8vw;
@@ -983,7 +1135,7 @@ font-size: 5.9vw;
     line-height: 7.3vw;
     font-weight: 600;
     font-family: "Manrope", sans-serif;
-    padding-bottom: 6.08vw;
+    padding-bottom: 2.08vw;
 }
     .rgwreger button{
         display: flex !important;
@@ -1099,73 +1251,5 @@ font-size: 5.9vw;
         padding-top: 1.25vw;
         font-size: 3.1vw;
         font-family: "Manrope", sans-serif;
-    }
-    .main_container_article {
-    max-width: 86vw;
-    margin: 0 auto;
-}
-.title_article_article h1 {
-    font-size: 7.125vw;
-    letter-spacing: -0.09vw;
-    line-height: 8.5vw;
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    padding-top: 2vw;
-    padding-bottom: 1.7vw;
-    font-family: "Manrope", sans-serif;
-}
-.content_of_content_article___ {
-    max-width: 100%;
-}
-.content_article_artilce figure {
-    margin-block-start: 1em;
-    margin-block-end: 2em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-}
-.content_article_artilce p {
-    font-size: 3.5vw;
-    padding-bottom: 5.25vw;
-}
-.title_article_article {
-    padding-bottom: 6vw;
-}
-.content_article_artilce figure img {
-    border: 2px solid #FF8B3A;
-    border-radius: 4vw;
-    height: 69vw;
-    width: 100%;
-    object-fit: cover;
-}
-.content_article_artilce figure figcaption {
-    padding-top: 1vw;
-    opacity: 0.5;
-    font-size: 3vw;
-}
-.content_article_artilce blockquote {
-    margin-inline-start: 0px;
-    background-color: var(--back);
-    padding: 3.5vw;
-    border-radius: 5vw;
-    font-size: 3.25vw;
-    margin-block-start: 1.5em;
-    margin-block-end: 1.5em;
-    color: white;
-    margin-inline-end: 0px;
-}
-.content_artile_article h2 {
-    font-size: 6vw;
-    letter-spacing: -0.05vw;
-    line-height: 8.5vw;
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    padding-top: 2vw;
-    padding-bottom: 2.7vw;
-    font-family: "Manrope", sans-serif;
-}
-.iooijef {
-        text-align: left;
-        padding-top: 7vw;
-        padding-bottom: 4vw;
     }
 }
