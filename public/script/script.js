@@ -9,3 +9,9 @@ burger.addEventListener('click', () => {
 CloseMobNav.addEventListener('click', () => {
   MobileNavigation.classList.remove('active');
 });
+document.documentElement.style.overflowX = 'hidden';
+document.body.style.overflowX = 'hidden';
+window.addEventListener('resize', () => {
+    document.documentElement.style.overflowX = 'hidden';
+    document.body.style.overflowX = 'hidden';
+});
