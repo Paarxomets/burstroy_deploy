@@ -14,6 +14,7 @@ const storage = multer.diskStorage({
         cb(null, `${uniqueSuffix}-${file.originalname}`);
     }
 });
+
 const upload = multer({
     storage,
     fileFilter: (req, file, cb) => {
@@ -23,7 +24,8 @@ const upload = multer({
         } else {
             cb(new Error('Только изображения (jpeg, png, gif) разрешены'));
         }
-    }
+    },
+    limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
 }).any();
 
 app.use(express.json());
@@ -63,7 +65,7 @@ app.post('/save-article', async (req, res) => {
     upload(req, res, async (err) => {
         if (err) {
             console.error('Ошибка загрузки файла:', err.message);
-            return res.status(500).json({ error: 'Ошибка при загрузке файлов', details: err.message });
+            return res.status(400).json({ error: 'Ошибка при загрузке файлов', details: err.message });
         }
 
         console.log('Полученные файлы:', req.files ? req.files.map(f => f.filename) : 'Нет файлов');
@@ -107,7 +109,7 @@ app.post('/save-article', async (req, res) => {
             }
 
             const articleData = {
-                id: Date.now().toString(),
+                id: Date.now().toString() + '_' + Math.random().toString(36).substr(2, 5), // Уникальный ID
                 datetime: newData.datetime,
                 title: newData.title || 'Без названия',
                 checkbox: newData.checkbox === 'true',
@@ -325,7 +327,7 @@ app.get('/sitemap.xml', async (req, res) => {
         }));
         json = json.filter(article => article);
 
-        const baseUrl = 'https://test-parkhomets.store'; // Обновлено для VPS
+        const baseUrl = 'https://test-parkhomets.store';
         const sitemap = `
             <?xml version="1.0" encoding="UTF-8"?>
             <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -366,6 +368,6 @@ app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Сервер запущен на порту ${PORT}`);
 });

@@ -108,38 +108,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function collectFormData(container) {
-        const articleTitle = container.querySelector('input[name="article_title"]').value;
+        const articleTitle = container.querySelector('input[name="article_title"]').value.trim();
         const datetime = container.querySelector('#datetime')?.textContent;
         const technologyCheckbox = container.querySelector('#technology');
         const checkbox = technologyCheckbox ? technologyCheckbox.checked : false;
         const elementsContainer = container.querySelector('.create_elements');
         const elements = [];
 
+        if (!articleTitle) {
+            alert('Название статьи обязательно!');
+            return null;
+        }
+
         elementsContainer.querySelectorAll('.element').forEach((el, index) => {
             const type = el.dataset.type;
             if (type === 'title') {
-                const value = el.querySelector('input[name="title"]')?.value;
+                const value = el.querySelector('input[name="title"]')?.value.trim();
                 if (value) {
                     elements.push({ type: 'title', value });
                 }
             } else if (type === 'text') {
-                const value = el.querySelector('textarea[name="text"]')?.value;
+                const value = el.querySelector('textarea[name="text"]')?.value.trim();
                 if (value) {
                     elements.push({ type: 'text', value });
                 }
             } else if (type === 'photo') {
-                const description = el.querySelector('input[name="description"]')?.value || '';
+                const description = el.querySelector('input[name="description"]')?.value.trim() || '';
                 const file = el.querySelector('input[name="photo"]')?.files?.[0];
                 if (file) {
                     elements.push({ type: 'photo', value: { description, file, index } });
                 }
             } else if (type === 'quote') {
-                const value = el.querySelector('input[name="quote"]')?.value;
+                const value = el.querySelector('input[name="quote"]')?.value.trim();
                 if (value) {
                     elements.push({ type: 'quote', value });
                 }
             }
         });
+
+        if (elements.length === 0) {
+            alert('Добавьте хотя бы один элемент (заголовок, текст, фото или цитату)!');
+            return null;
+        }
 
         return {
             datetime,
@@ -151,11 +161,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadArticles() {
         try {
-            const response = await fetch('/articles-data');
+            const response = await fetch('/articles-data', { method: 'GET' });
             if (!response.ok) {
-                throw new Error('Ошибка загрузки статей');
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }
             const articles = await response.json();
+            if (!Array.isArray(articles)) {
+                throw new Error('Некорректный формат данных статей');
+            }
             listArticlesContent.innerHTML = articles.map(article => {
                 const firstText = article.content?.elements?.find(el => el.type === 'text')?.value || 'Текст отсутствует';
                 const firstImage = article.content?.elements?.find(el => el.type === 'photo')?.value?.filename || '';
@@ -179,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }).join('');
         } catch (err) {
             console.error('Ошибка загрузки статей:', err.message);
-            listArticlesContent.innerHTML = '<p>Ошибка загрузки статей</p>';
+            listArticlesContent.innerHTML = `<p>Ошибка загрузки статей: ${err.message}</p>`;
         }
     }
 
@@ -221,11 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         containerForm.querySelector('.add_article').addEventListener('click', async () => {
             const data = await collectFormData(containerForm);
-
-            if (!data.title) {
-                alert("Пожалуйста, заполните название статьи.");
-                return;
-            }
+            if (!data) return;
 
             const formData = new FormData();
             formData.append('datetime', data.datetime || '');
@@ -251,6 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     photoCount++;
                 }
             });
+
             console.log('Элементы формы:', data.elements);
             data.elements.forEach((el, i) => {
                 if (el.type === 'photo') {
@@ -286,14 +296,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert(message);
                     containerForm.innerHTML = '';
                     isRendered = false;
-                    loadArticles();
+                    await loadArticles();
                 } else {
-                    console.error('Ошибка сервера:', result);
-                    alert(result.error || "Ошибка при сохранении");
+                    console.error('Ошибка сервера:', result.error, result.details);
+                    alert(`Ошибка при сохранении: ${result.error || 'Неизвестная ошибка'}`);
                 }
             } catch (err) {
                 console.error('Ошибка сети:', err.message);
-                alert("Ошибка сети. Проверьте, запущен ли сервер, и попробуйте снова.");
+                alert(`Ошибка сети: ${err.message}. Проверьте, запущен ли сервер.`);
             }
         });
     });
@@ -317,14 +327,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     const result = await response.json();
                     if (response.ok) {
                         alert(result.message || 'Статья удалена');
-                        loadArticles();
+                        await loadArticles();
                     } else {
-                        console.error('Ошибка удаления:', result);
+                        console.error('Ошибка удаления:', result.error);
                         alert(result.error || 'Ошибка при удалении статьи');
                     }
                 } catch (err) {
                     console.error('Ошибка сети:', err.message);
-                    alert('Ошибка сети при удалении статьи');
+                    alert(`Ошибка сети при удалении: ${err.message}`);
                 }
             }
         }
