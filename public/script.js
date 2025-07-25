@@ -251,6 +251,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     photoCount++;
                 }
             });
+            console.log('Элементы формы:', data.elements);
+            data.elements.forEach((el, i) => {
+                if (el.type === 'photo') {
+                    console.log(`Фото ${i}:`, el.value.file ? el.value.file.name : 'Файл не выбран');
+                }
+            });
 
             console.log('Отправляемые данные:', {
                 datetime: data.datetime,
