@@ -8,12 +8,12 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="favicon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>oijoijpgerogjwperg</title>
-    <meta name="description" content="weurgiowehrgoiwuheoriug">
-    <meta name="keywords" content="oijoijpgerogjwperg,статья,новости">
+    <title>оилорлоилрои</title>
+    <meta name="description" content="риглнмшгншгрт ">
+    <meta name="keywords" content="оилорлоилрои,статья,новости">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Бур Строй Ком">
-    <link rel="canonical" href="https://yourdomain.com/article/1753430756104">
+    <link rel="canonical" href="https://yourdomain.com/article/1753436549109">
 </head>
 <body>
     <header id="header_up">
@@ -93,13 +93,13 @@
             <div class="content_of_content_article___">
                 <div class="content_artile_article">
                     <div class="title_article_article">
-                        <h1>oijoijpgerogjwperg</h1>
-                        <p>11:05, 25 июля - Источник: <a class="ijfoeqrfjowefer" href="/index.html">Бур Строй Ком</a></p>
+                        <h1>оилорлоилрои</h1>
+                        <p>12:42, 25 июля - Источник: <a class="ijfoeqrfjowefer" href="/index.html">Бур Строй Ком</a></p>
                     </div>
                     <div class="content_article_artilce">
-                        <p>weurgiowehrgoiwuheoriug</p>
+                        <p>риглнмшгншгрт </p>
                         <figure>
-                            <img src="/img/1753430756101-32036945-ed1d313f2b5854a42c627cc4efebf105.jpg" alt="" style="max-width: 100%;">
+                            <img src="/img/1753436549083-918434891-Ð°.png" alt="" style="max-width: 100%;">
                             <figcaption></figcaption>
                         </figure>
                     
@@ -169,93 +169,93 @@
     <script src="script/smooth-page-transition.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const containerArticle = document.querySelector('.grid_container');
-            if (!containerArticle) {
-                console.error('Контейнер .grid_container не найден в HTML');
-                return;
-            }
+  const containerArticle = document.querySelector('.grid_container');
+  if (!containerArticle) {
+    console.error('Контейнер .grid_container не найден в HTML');
+    return;
+  }
 
-            async function loadJSON() {
-                try {
-                const response = await fetch('/data_article.json');
-                if (!response.ok) throw new Error(`Не удалось загрузить JSON: ${response.status}`);
-                const data = await response.json();
-                console.log('JSON данные:', data);
-                return data;
-                } catch (error) {
-                console.error('Ошибка при загрузке JSON:', error);
-                }
-            }
+  async function loadJSON() {
+    try {
+      const response = await fetch('/data_article.json');
+      if (!response.ok) throw new Error(`Не удалось загрузить JSON: ${response.status}`);
+      const data = await response.json();
+      console.log('JSON данные:', data);
+      return data;
+    } catch (error) {
+      console.error('Ошибка при загрузке JSON:', error);
+    }
+  }
 
-            async function getFirstImageFromArticle(articleId) {
-                try {
-                const response = await fetch(`articles/${articleId}.html`);
-                if (!response.ok) throw new Error(`Не удалось загрузить статью: ${response.status}`);
-                const htmlContent = await response.text();
-                
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(htmlContent, 'text/html');
-                
-                // Список иконок, которые нужно игнорировать
-                const ignoredImages = ['burger.svg', 'phone_icon.svg', 'chat_icon.svg'];
-                
-                // Ищем все теги <img> в статье
-                const imgElements = doc.querySelectorAll('img');
-                
-                // Находим первое изображение, чей src не содержит игнорируемые имена
-                const imgElement = Array.from(imgElements).find(img => {
-                    const src = img.src.toLowerCase();
-                    return !ignoredImages.some(ignored => src.includes(ignored));
-                });
-                
-                const imageSrc = imgElement ? imgElement.src : 'content/example_img_for_article.png';
-                console.log(`Изображение для статьи ${articleId}: ${imageSrc}`);
-                return imageSrc;
-                } catch (error) {
-                console.error(`Ошибка при загрузке изображения для статьи ${articleId}:`, error);
-                return 'content/example_img_for_article.png';
-                }
-            }
+  async function getFirstImageFromArticle(articleId) {
+    try {
+      const response = await fetch(`articles/${articleId}.html`);
+      if (!response.ok) throw new Error(`Не удалось загрузить статью: ${response.status}`);
+      const htmlContent = await response.text();
+      
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlContent, 'text/html');
+      
+      // Список иконок, которые нужно игнорировать
+      const ignoredImages = ['burger.svg', 'phone_icon.svg', 'chat_icon.svg'];
+      
+      // Ищем все теги <img> в статье
+      const imgElements = doc.querySelectorAll('img');
+      
+      // Находим первое изображение, чей src не содержит игнорируемые имена
+      const imgElement = Array.from(imgElements).find(img => {
+        const src = img.src.toLowerCase();
+        return !ignoredImages.some(ignored => src.includes(ignored));
+      });
+      
+      const imageSrc = imgElement ? imgElement.src : 'content/example_img_for_article.png';
+      console.log(`Изображение для статьи ${articleId}: ${imageSrc}`);
+      return imageSrc;
+    } catch (error) {
+      console.error(`Ошибка при загрузке изображения для статьи ${articleId}:`, error);
+      return 'content/example_img_for_article.png';
+    }
+  }
 
-            async function displayArticles() {
-                const articles = await loadJSON();
-                if (!articles || !Array.isArray(articles)) {
-                console.error('Данные не загружены или не являются массивом');
-                return;
-                }
+  async function displayArticles() {
+    const articles = await loadJSON();
+    if (!articles || !Array.isArray(articles)) {
+      console.error('Данные не загружены или не являются массивом');
+      return;
+    }
 
-                containerArticle.innerHTML = '';
+    containerArticle.innerHTML = '';
 
-                for (const article of articles.slice(0, 3)) {
-                const image = await getFirstImageFromArticle(article.id);
-                
-                const textElement = article.content.elements.find(element => element.type === 'text');
-                const description = textElement ? textElement.value.split('\n')[0] : 'Описание отсутствует';
+    for (const article of articles.slice(0, 3)) {
+      const image = await getFirstImageFromArticle(article.id);
+      
+      const textElement = article.content.elements.find(element => element.type === 'text');
+      const description = textElement ? textElement.value.split('\n')[0] : 'Описание отсутствует';
 
-                const articleLink = `${article.id}.html`;
-                console.log(`Ссылка на статью ${article.id}: ${articleLink}`);
+      const articleLink = `${article.id}.html`;
+      console.log(`Ссылка на статью ${article.id}: ${articleLink}`);
 
-                const ItemArticle = `
-                    <div class="grid_item oiewqfjpoiwqepfoijqw">
-                    <div class="item_content_container">
-                        <div class="information_articless">
-                        <div class="text_block_for_item_grid">
-                            <h3>${article.title.substring(0, 50)}...</h3>
-                            <h4>${description}</h4>
-                        </div>
-                        <div class="button_contiioerfnireog">
-                            <button class="link_on_articles" onclick="window.location.href='${articleLink}'">Читать<img src="content/book_icon.svg" alt="book_icon"></button>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                `;
-                containerArticle.insertAdjacentHTML('beforeend', ItemArticle);
-                }
-            }
+      const ItemArticle = `
+        <div class="grid_item oiewqfjpoiwqepfoijqw">
+          <div class="item_content_container">
+            <div class="information_articless">
+              <div class="text_block_for_item_grid">
+                <h3>${article.title.substring(0, 50)}...</h3>
+                <h4>${description}</h4>
+              </div>
+              <div class="button_contiioerfnireog">
+                <button class="link_on_articles" onclick="window.location.href='${articleLink}'">Читать<img src="content/book_icon.svg" alt="book_icon"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      containerArticle.insertAdjacentHTML('beforeend', ItemArticle);
+    }
+  }
 
-            displayArticles();
-            });
+  displayArticles();
+});
     </script>
 <script>
   AOS.init();
