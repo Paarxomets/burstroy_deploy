@@ -13,9 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         <label class="user-label">Название статьи</label>
                         <button class="delete-form tooltip">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
-  <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.596 19h4.807a2.75 2.75 0 0 0 2.742-2.53l.841-10.52.149.023a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 4.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4ZM8.58 7.72a.75.75 0 0 0-1.5.06l.3 7.5a.75.75 0 1 0 1.5-.06l-.3-7.5Zm4.34.06a.75.75 0 1 0-1.5-.06l-.3 7.5a.75.75 0 1 0 1.5.06l.3-7.5Z" clip-rule="evenodd" />
-</svg>
-
+                                <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.596 19h4.807a2.75 2.75 0 0 0 2.742-2.53l.841-10.52.149.023a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 4.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4ZM8.58 7.72a.75.75 0 0 0-1.5.06l.3 7.5a.75.75 0 1 0 1.5-.06l-.3-7.5Zm4.34.06a.75.75 0 1 0-1.5-.06l-.3 7.5a.75.75 0 1 0 1.5.06l.3-7.5Z" clip-rule="evenodd" />
+                            </svg>
                             <span class="tooltiptext">удалить</span>
                         </button>
                     </div>
@@ -167,7 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div class="text_information_article">
                                     <h4>${article.title}</h4>
                                     <p>${firstText.slice(0, 100)}...</p>
-                                
                                 </div>
                                 <button class="detele_article_list">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44" fill="none">
@@ -180,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             }).join('');
         } catch (err) {
-            console.error('Ошибка загрузки статей:', err);
+            console.error('Ошибка загрузки статей:', err.message);
             listArticlesContent.innerHTML = '<p>Ошибка загрузки статей</p>';
         }
     }
@@ -210,13 +208,11 @@ document.addEventListener('DOMContentLoaded', () => {
             createElementsContainer.insertAdjacentHTML('beforeend', templates.quoteForm());
         });
 
-        // Обработчик для удаления всей формы
         containerForm.querySelector('.delete-form').addEventListener('click', () => {
             containerForm.innerHTML = '';
             isRendered = false;
         });
 
-        // Обработчик для удаления отдельных элементов
         containerForm.addEventListener('click', (e) => {
             if (e.target.closest('.delete-element')) {
                 e.target.closest('.element')?.remove();
@@ -236,21 +232,18 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append('title', data.title);
             formData.append('checkbox', data.checkbox);
 
-            // Фильтруем элементы, чтобы отправить только валидные
             const elements = data.elements.filter(el => {
                 if (el.type === 'photo') {
-                    return el.value.file; // Только если есть файл
+                    return el.value.file;
                 }
                 return true;
             });
 
-            // Добавляем элементы в formData
             formData.append('elements', JSON.stringify(elements.map(el => ({
                 type: el.type,
                 value: el.type === 'photo' ? { description: el.value.description, index: el.value.index } : el.value
             }))));
 
-            // Добавляем файлы с уникальными ключами
             let photoCount = 0;
             data.elements.forEach((el) => {
                 if (el.type === 'photo' && el.value.file) {
@@ -267,9 +260,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 photoCount: photoCount
             });
 
-            // Для отладки: логируем содержимое FormData
+            console.log('FormData перед отправкой:');
             for (let [key, value] of formData.entries()) {
-                console.log(`FormData: ${key} =`, value);
+                console.log(`${key}:`, value instanceof File ? value.name : value);
             }
 
             try {
@@ -293,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert(result.error || "Ошибка при сохранении");
                 }
             } catch (err) {
-                console.error('Ошибка сети:', err);
+                console.error('Ошибка сети:', err.message);
                 alert("Ошибка сети. Проверьте, запущен ли сервер, и попробуйте снова.");
             }
         });
@@ -324,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         alert(result.error || 'Ошибка при удалении статьи');
                     }
                 } catch (err) {
-                    console.error('Ошибка сети:', err);
+                    console.error('Ошибка сети:', err.message);
                     alert('Ошибка сети при удалении статьи');
                 }
             }

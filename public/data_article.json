@@ -1143,5 +1143,62 @@
         }
       ]
     }
+  },
+  {
+    "id": "1753428171634",
+    "datetime": "10:22, 25 июля - Источник:",
+    "title": "qwefqwef",
+    "checkbox": false,
+    "content": {
+      "elements": [
+        {
+          "type": "text",
+          "value": "qwefqwef"
+        },
+        {
+          "type": "title",
+          "value": "qwefwefq"
+        },
+        {
+          "type": "photo",
+          "value": {
+            "description": "jnkj",
+            "filename": "img/1753428171618-668682349-ed1d313f2b5854a42c627cc4efebf105.jpg"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "1753428258610",
+    "datetime": "10:24, 25 июля - Источник:",
+    "title": "qwefqe",
+    "checkbox": false,
+    "content": {
+      "elements": [
+        {
+          "type": "title",
+          "value": "qwefqwef"
+        },
+        {
+          "type": "text",
+          "value": "qwefqef"
+        },
+        {
+          "type": "photo",
+          "value": {
+            "description": "",
+            "filename": "img/1753428258603-355729889-ed1d313f2b5854a42c627cc4efebf105.jpg"
+          }
+        },
+        {
+          "type": "photo",
+          "value": {
+            "description": "",
+            "filename": "img/1753428258603-915729416-ed1d313f2b5854a42c627cc4efebf105.png"
+          }
+        }
+      ]
+    }
   }
 ]

@@ -33,16 +33,22 @@ const ensureImgDir = async () => {
     const imgDir = path.join(__dirname, 'public/img');
     try {
         await fs.access(imgDir);
+        console.log('Директория public/img существует');
     } catch {
+        console.log('Создаю директорию public/img');
         await fs.mkdir(imgDir, { recursive: true });
+        console.log('Директория public/img создана');
     }
 };
 
 const ensureDir = async (dir) => {
     try {
         await fs.access(dir);
+        console.log(`Директория ${dir} существует`);
     } catch {
+        console.log(`Создаю директорию ${dir}`);
         await fs.mkdir(dir, { recursive: true });
+        console.log(`Директория ${dir} создана`);
     }
 };
 
@@ -52,21 +58,21 @@ app.get('/', (req, res) => {
 
 app.post('/save-article', async (req, res) => {
     await ensureImgDir();
+    console.log('Проверка прав public/img:', (await fs.stat(path.join(__dirname, 'public/img'))).mode.toString(8));
 
     upload(req, res, async (err) => {
         if (err) {
-            console.error('Ошибка загрузки файла:', err);
-            return res.status(500).json({ error: 'Ошибка при загрузке файлов' });
+            console.error('Ошибка загрузки файла:', err.message);
+            return res.status(500).json({ error: 'Ошибка при загрузке файлов', details: err.message });
         }
+
+        console.log('Полученные файлы:', req.files ? req.files.map(f => f.filename) : 'Нет файлов');
+        console.log('Полученные данные:', req.body);
 
         const filePath = path.join(__dirname, 'public', 'data_article.json');
         const templatePath = path.join(__dirname, 'public', 'chablon.html');
         const newData = req.body;
         const photos = req.files || [];
-
-        console.log('Полученные данные из формы:', newData);
-        console.log('Полученные файлы:', photos.map(f => ({ fieldname: f.fieldname, originalname: f.originalname, filename: f.filename })));
-        console.log('Полученное значение checkbox:', newData.checkbox);
 
         try {
             if (!newData.title || !newData.datetime || !newData.elements) {
@@ -78,8 +84,8 @@ app.post('/save-article', async (req, res) => {
             try {
                 elements = JSON.parse(newData.elements);
             } catch (e) {
-                console.error('Ошибка парсинга elements:', e);
-                return res.status(400).json({ error: 'Ошибка в формате элементов' });
+                console.error('Ошибка парсинга elements:', e.message);
+                return res.status(400).json({ error: 'Ошибка в формате элементов', details: e.message });
             }
 
             let json = [];
@@ -91,8 +97,8 @@ app.post('/save-article', async (req, res) => {
                 }
             } catch (e) {
                 if (e.code !== 'ENOENT') {
-                    console.error('Ошибка чтения JSON:', e);
-                    return res.status(500).json({ error: 'Ошибка при чтении файла данных' });
+                    console.error('Ошибка чтения JSON:', e.message);
+                    return res.status(500).json({ error: 'Ошибка при чтении файла данных', details: e.message });
                 }
             }
 
@@ -142,8 +148,8 @@ app.post('/save-article', async (req, res) => {
             try {
                 template = await fs.readFile(templatePath, 'utf8');
             } catch (e) {
-                console.error('Ошибка чтения chablon.html:', e);
-                return res.status(500).json({ error: 'Ошибка чтения шаблона' });
+                console.error('Ошибка чтения chablon.html:', e.message);
+                return res.status(500).json({ error: 'Ошибка чтения шаблона', details: e.message });
             }
 
             const description = articleData.content.elements
@@ -180,8 +186,8 @@ app.post('/save-article', async (req, res) => {
                 await fs.writeFile(articleHtmlPath, template);
                 console.log(`HTML-файл создан: ${articleHtmlPath}`);
             } catch (e) {
-                console.error('Ошибка записи HTML-файла:', e);
-                return res.status(500).json({ error: 'Ошибка при записи HTML-файла' });
+                console.error('Ошибка записи HTML-файла:', e.message);
+                return res.status(500).json({ error: 'Ошибка при записи HTML-файла', details: e.message });
             }
 
             await fs.writeFile(filePath, JSON.stringify(json, null, 2));
@@ -190,8 +196,8 @@ app.post('/save-article', async (req, res) => {
                 photoCount: photos.length
             });
         } catch (err) {
-            console.error('Ошибка сервера:', err);
-            res.status(500).json({ error: 'Ошибка сервера при сохранении данных' });
+            console.error('Ошибка сервера:', err.message);
+            res.status(500).json({ error: 'Ошибка сервера при сохранении данных', details: err.message });
         }
     });
 });
@@ -207,7 +213,7 @@ app.get('/article/:id', async (req, res) => {
         const html = await fs.readFile(articleHtmlPath, 'utf8');
         res.send(html);
     } catch (err) {
-        console.error('Ошибка загрузки статьи:', err);
+        console.error('Ошибка загрузки статьи:', err.message);
         res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
     }
 });
@@ -235,8 +241,8 @@ app.get('/articles-data', async (req, res) => {
 
         res.json(json);
     } catch (err) {
-        console.error('Ошибка загрузки данных статей:', err);
-        res.status(500).json({ error: 'Ошибка при загрузке данных статей' });
+        console.error('Ошибка загрузки данных статей:', err.message);
+        res.status(500).json({ error: 'Ошибка при загрузке данных статей', details: err.message });
     }
 });
 
@@ -253,8 +259,8 @@ app.delete('/article/:id', async (req, res) => {
             }
         } catch (e) {
             if (e.code !== 'ENOENT') {
-                console.error('Ошибка чтения JSON:', e);
-                return res.status(500).json({ error: 'Ошибка при чтении файла данных' });
+                console.error('Ошибка чтения JSON:', e.message);
+                return res.status(500).json({ error: 'Ошибка при чтении файла данных', details: e.message });
             }
         }
 
@@ -273,7 +279,7 @@ app.delete('/article/:id', async (req, res) => {
                     console.log(`Удалён файл изображения: ${imagePath}`);
                 } catch (e) {
                     if (e.code !== 'ENOENT') {
-                        console.error(`Ошибка удаления файла изображения ${imagePath}:`, e);
+                        console.error(`Ошибка удаления файла изображения ${imagePath}:`, e.message);
                     }
                 }
             }
@@ -286,15 +292,15 @@ app.delete('/article/:id', async (req, res) => {
             console.log(`Удалён HTML-файл: ${articleHtmlPath}`);
         } catch (e) {
             if (e.code !== 'ENOENT') {
-                console.error('Ошибка удаления HTML:', e);
+                console.error('Ошибка удаления HTML:', e.message);
             }
         }
 
         await fs.writeFile(filePath, JSON.stringify(json, null, 2));
         res.status(200).json({ message: 'Статья удалена' });
     } catch (err) {
-        console.error('Ошибка сервера:', err);
-        res.status(500).json({ error: 'Ошибка сервера при удалении статьи' });
+        console.error('Ошибка сервера:', err.message);
+        res.status(500).json({ error: 'Ошибка сервера при удалении статьи', details: err.message });
     }
 });
 
@@ -319,7 +325,7 @@ app.get('/sitemap.xml', async (req, res) => {
         }));
         json = json.filter(article => article);
 
-        const baseUrl = 'https://parkhozk.beget.tech';
+        const baseUrl = 'https://test-parkhomets.store'; // Обновлено для VPS
         const sitemap = `
             <?xml version="1.0" encoding="UTF-8"?>
             <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -351,7 +357,7 @@ app.get('/sitemap.xml', async (req, res) => {
         res.header('Content-Type', 'application/xml');
         res.send(sitemap);
     } catch (err) {
-        console.error('Ошибка создания sitemap:', err);
+        console.error('Ошибка создания sitemap:', err.message);
         res.status(500).send('Ошибка сервера');
     }
 });
