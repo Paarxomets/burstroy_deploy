@@ -5,6 +5,7 @@ const multer = require('multer');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Настройка multer для загрузки файлов
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'public/img/');
@@ -25,24 +26,20 @@ const upload = multer({
             cb(new Error('Только изображения (jpeg, png, gif) разрешены'));
         }
     },
-    limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
+    limits: { fileSize: 50 * 1024 * 1024 } // 50MB limit
 }).any();
 
+// Middleware
 app.use(express.json());
 app.use(express.static('public'));
 
-const ensureImgDir = async () => {
-    const imgDir = path.join(__dirname, 'public/img');
-    try {
-        await fs.access(imgDir);
-        console.log('Директория public/img существует');
-    } catch {
-        console.log('Создаю директорию public/img');
-        await fs.mkdir(imgDir, { recursive: true });
-        console.log('Директория public/img создана');
-    }
-};
+// Логирование всех запросов для отладки
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    next();
+});
 
+// Проверка и создание директорий
 const ensureDir = async (dir) => {
     try {
         await fs.access(dir);
@@ -54,12 +51,20 @@ const ensureDir = async (dir) => {
     }
 };
 
+// Инициализация директорий при старте
+const initDirectories = async () => {
+    await ensureDir(path.join(__dirname, 'public/img'));
+    await ensureDir(path.join(__dirname, 'public/articles'));
+};
+
+// Главная страница
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// Сохранение статьи
 app.post('/save-article', async (req, res) => {
-    await ensureImgDir();
+    await initDirectories();
     console.log('Проверка прав public/img:', (await fs.stat(path.join(__dirname, 'public/img'))).mode.toString(8));
 
     upload(req, res, async (err) => {
@@ -109,7 +114,7 @@ app.post('/save-article', async (req, res) => {
             }
 
             const articleData = {
-                id: Date.now().toString() + '_' + Math.random().toString(36).substr(2, 5), // Уникальный ID
+                id: Date.now().toString() + '_' + Math.random().toString(36).substr(2, 5),
                 datetime: newData.datetime,
                 title: newData.title || 'Без названия',
                 checkbox: newData.checkbox === 'true',
@@ -145,7 +150,6 @@ app.post('/save-article', async (req, res) => {
             json.push(articleData);
 
             const articleHtmlPath = path.join(__dirname, 'public/articles', `${articleData.id}.html`);
-            await ensureDir(path.join(__dirname, 'public/articles'));
             let template;
             try {
                 template = await fs.readFile(templatePath, 'utf8');
@@ -204,22 +208,7 @@ app.post('/save-article', async (req, res) => {
     });
 });
 
-app.get('/article/:id', async (req, res) => {
-    const articleId = req.params.id;
-    if (articleId.includes('.')) {
-        return res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
-    }
-
-    const articleHtmlPath = path.join(__dirname, 'public/articles', `${articleId}.html`);
-    try {
-        const html = await fs.readFile(articleHtmlPath, 'utf8');
-        res.send(html);
-    } catch (err) {
-        console.error('Ошибка загрузки статьи:', err.message);
-        res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
-    }
-});
-
+// Получение данных статей
 app.get('/articles-data', async (req, res) => {
     const filePath = path.join(__dirname, 'public', 'data_article.json');
     try {
@@ -248,6 +237,53 @@ app.get('/articles-data', async (req, res) => {
     }
 });
 
+// Добавляем маршрут /articles для совместимости с script.js
+app.get('/articles', async (req, res) => {
+    const filePath = path.join(__dirname, 'public', 'data_article.json');
+    try {
+        const fileData = await fs.readFile(filePath, 'utf8');
+        let json = JSON.parse(fileData);
+        if (!Array.isArray(json)) {
+            json = [];
+        }
+
+        json = await Promise.all(json.map(async (article) => {
+            const articleHtmlPath = path.join(__dirname, 'public/articles', `${article.id}.html`);
+            try {
+                await fs.access(articleHtmlPath);
+                return article;
+            } catch {
+                console.warn(`HTML-файл для статьи ${article.id} не найден, статья исключена`);
+                return null;
+            }
+        }));
+        json = json.filter(article => article);
+
+        res.json(json);
+    } catch (err) {
+        console.error('Ошибка загрузки данных статей:', err.message);
+        res.status(500).json({ error: 'Ошибка при загрузке данных статей', details: err.message });
+    }
+});
+
+// Получение статьи по ID
+app.get('/article/:id', async (req, res) => {
+    const articleId = req.params.id;
+    if (articleId.includes('.')) {
+        return res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+    }
+
+    const articleHtmlPath = path.join(__dirname, 'public/articles', `${articleId}.html`);
+    try {
+        const html = await fs.readFile(articleHtmlPath, 'utf8');
+        res.send(html);
+    } catch (err) {
+        console.error('Ошибка загрузки статьи:', err.message);
+        res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+    }
+});
+
+// Удаление статьи
 app.delete('/article/:id', async (req, res) => {
     const filePath = path.join(__dirname, 'public', 'data_article.json');
     const articleHtmlPath = path.join(__dirname, 'public/articles', `${req.params.id}.html`);
@@ -306,6 +342,7 @@ app.delete('/article/:id', async (req, res) => {
     }
 });
 
+// Sitemap
 app.get('/sitemap.xml', async (req, res) => {
     const filePath = path.join(__dirname, 'public', 'data_article.json');
     try {
@@ -364,10 +401,13 @@ app.get('/sitemap.xml', async (req, res) => {
     }
 });
 
+// Обработка 404
 app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
 });
 
-app.listen(PORT, '0.0.0.0', () => {
+// Запуск сервера
+app.listen(PORT, '0.0.0.0', async () => {
+    await initDirectories();
     console.log(`Сервер запущен на порту ${PORT}`);
 });
